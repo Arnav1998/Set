@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Card {
+struct Card: Equatable {
     
     let number: CardNumber
     let symbol: CardSymbol
@@ -21,22 +21,27 @@ struct Card {
         case three = 3
     }
     
-    enum CardSymbol: String {
-        case triangle = "▲"
-        case circle = "●"
-        case square = "■"
+    enum CardSymbol: Int {
+        case triangle = 1
+        case circle = 2
+        case square = 3
+        
     }
     
-    enum CardShading {
-        case solid
-        case open
-        case striped
+    enum CardShading: Int {
+        case solid = 1
+        case open = 2
+        case striped = 3
     }
     
-    enum CardColor {
-        case red
-        case green
-        case yellow
+    enum CardColor: Int {
+        case red = 1
+        case green = 2
+        case yellow = 3
+    }
+    
+    public static func == (lhs: Card, rhs: Card) -> Bool {
+        return (lhs.number == rhs.number && lhs.color == rhs.color && lhs.shading == rhs.shading && lhs.symbol == rhs.symbol)
     }
     
 }
