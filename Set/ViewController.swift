@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     
     private var brain = SetBrain()
+    private var activeButtonsCount = 12
     
     @IBOutlet weak var pointsLabel: UILabel!
     
@@ -25,7 +26,7 @@ class ViewController: UIViewController {
         
         for i in 0...11 {
             
-           let randomNum = Int(arc4random_uniform(UInt32(brain.cardsArray.count-1)))
+           let randomNum = (brain.cardsArray.count).arc4random
            cardButtonsArray[i].setAttributedTitle(getNSAtributedStringForCard(card: brain.cardsArray[randomNum]), for: UIControl.State.normal)
            brain.cardsArray.remove(at: randomNum)
             
@@ -34,6 +35,19 @@ class ViewController: UIViewController {
     }
     
     @IBAction func addCardsButtonPressed() {
+        
+        activeButtonsCount += 3
+        
+        for i in 1...3 {
+            
+            let randomNum = (brain.cardsArray.count).arc4random
+            
+            cardButtonsArray[(activeButtonsCount-4)+i].isEnabled = true
+            cardButtonsArray[(activeButtonsCount-4)+i].backgroundColor = #colorLiteral(red: 0.9450980392, green: 0.9803921569, blue: 0.9333333333, alpha: 1)
+            cardButtonsArray[(activeButtonsCount-4)+i].setAttributedTitle(getNSAtributedStringForCard(card: brain.cardsArray[randomNum]), for: UIControl.State.normal)
+            brain.cardsArray.remove(at: randomNum)
+        }
+        
     }
 
     @IBAction func newGameButtonPressed() {
@@ -117,3 +131,8 @@ class ViewController: UIViewController {
     
 }
 
+extension Int {
+    var arc4random: Int {
+        return Int(arc4random_uniform(UInt32(self)))
+    }
+}
