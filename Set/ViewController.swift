@@ -23,8 +23,12 @@ class ViewController: UIViewController {
         //load 12 cards at random
         brain.generateCards()
         
-        for i in 0...11 { //for testing purposes(might contain duplicates)
-           cardButtonsArray[i].setAttributedTitle(getNSAtributedStringForCard(card: brain.cardsArray[Int(arc4random_uniform(UInt32(81)))]), for: UIControl.State.normal)
+        for i in 0...11 {
+            
+           let randomNum = Int(arc4random_uniform(UInt32(brain.cardsArray.count-1)))
+           cardButtonsArray[i].setAttributedTitle(getNSAtributedStringForCard(card: brain.cardsArray[randomNum]), for: UIControl.State.normal)
+           brain.cardsArray.remove(at: randomNum)
+            
         }
         
     }
