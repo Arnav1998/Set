@@ -11,6 +11,7 @@ import Foundation
 struct SetBrain {
     
     var cardsArray = [Card]()
+    var points = 0
     
     mutating func generateCards() {
         

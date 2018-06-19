@@ -36,8 +36,8 @@ struct Card: Equatable {
     
     enum CardColor: Int {
         case red = 1
-        case green = 2
-        case yellow = 3
+        case magenta = 2
+        case black = 3
     }
     
     public static func == (lhs: Card, rhs: Card) -> Bool {
