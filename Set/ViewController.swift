@@ -24,12 +24,28 @@ class ViewController: UIViewController {
         //load 12 cards at random
         brain.generateCards()
         
+        for i in 0...23 {
+            cardButtonsArray[i].layer.cornerRadius = 8.0
+        }
+        
         for i in 0...11 {
             
            let randomNum = (brain.cardsArray.count).arc4random
            cardButtonsArray[i].setAttributedTitle(getNSAtributedStringForCard(card: brain.cardsArray[randomNum]), for: UIControl.State.normal)
            brain.cardsArray.remove(at: randomNum)
             
+        }
+        
+    }
+    
+    @IBAction func cardButtonPressed(_ sender: UIButton) {
+        
+        if (sender.layer.borderWidth == 0.0) {
+            sender.layer.borderWidth = 3.0
+            sender.layer.borderColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1).cgColor
+        } else {
+            sender.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0).cgColor
+            sender.layer.borderWidth = 0.0
         }
         
     }
