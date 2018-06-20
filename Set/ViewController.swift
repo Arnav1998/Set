@@ -48,11 +48,16 @@ class ViewController: UIViewController {
             sender.layer.borderWidth = 0.0
             
             for i in brain.cardsFacedUp.indices {
-                if (brain.cardsArray[cardButtonsArray.index(of: sender)!] == brain.cardsFacedUp[i]) {
+                if (brain.cardsArray[cardButtonsArray.index(of: sender)!] == brain.cardsFacedUp[i]) { //check for logic error
                     brain.cardsFacedUp.remove(at: i)
                 }
             }
         }
+        
+//        if (brain.cardsFacedUp.count == 3) {
+//            print(brain.chechForMatch())
+//
+//        }
         
     }
     

@@ -39,21 +39,23 @@ struct SetBrain {
         
     }
     
-    func chechForMatch() {
+    func chechForMatch() -> Bool {
         
-        //one of the 4 categories all the same
+//        They all have the same number or have three different numbers.
+//        They all have the same symbol or have three different symbols.
+//        They all have the same shading or have three different shadings.
+//        They all have the same color or have three different colors.
         
-        //all have same color
-        //all have same shading
-        //all have same count
-        //all have same shape
-        
-        //all the 4 categories are different
-        
-        //all have different color
-        //all have different shading
-        //all have different count
-        //all have differeht shape
+        if ((cardsFacedUp[0].number == cardsFacedUp[1].number && cardsFacedUp[1].number == cardsFacedUp[2].number)||(cardsFacedUp[0].number != cardsFacedUp[1].number && cardsFacedUp[1].number != cardsFacedUp[2].number)) && ((cardsFacedUp[0].symbol == cardsFacedUp[1].symbol && cardsFacedUp[1].symbol == cardsFacedUp[2].symbol)||(cardsFacedUp[0].symbol != cardsFacedUp[1].symbol && cardsFacedUp[1].symbol != cardsFacedUp[2].symbol)) && ((cardsFacedUp[0].shading == cardsFacedUp[1].shading && cardsFacedUp[1].shading == cardsFacedUp[2].shading)||(cardsFacedUp[0].shading != cardsFacedUp[1].shading && cardsFacedUp[1].shading != cardsFacedUp[2].shading)) && ((cardsFacedUp[0].color == cardsFacedUp[1].color && cardsFacedUp[1].color == cardsFacedUp[2].color)||(cardsFacedUp[0].color != cardsFacedUp[1].color && cardsFacedUp[1].color != cardsFacedUp[2].color)) {
+            
+            return true
+            
+        } else {
+            
+            return false
+            
+        }
+            
         
     }
     
