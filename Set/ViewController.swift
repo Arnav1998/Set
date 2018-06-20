@@ -30,9 +30,7 @@ class ViewController: UIViewController {
         
         for i in 0...11 {
             
-           let randomNum = (brain.cardsArray.count).arc4random
-           cardButtonsArray[i].setAttributedTitle(getNSAtributedStringForCard(card: brain.cardsArray[randomNum]), for: UIControl.State.normal)
-           brain.cardsArray.remove(at: randomNum)
+           cardButtonsArray[i].setAttributedTitle(getNSAtributedStringForCard(card: brain.cardsArray[i]), for: UIControl.State.normal)
             
         }
         
@@ -56,12 +54,10 @@ class ViewController: UIViewController {
         
         for i in 1...3 {
             
-            let randomNum = (brain.cardsArray.count).arc4random
-            
             cardButtonsArray[(activeButtonsCount-4)+i].isEnabled = true
             cardButtonsArray[(activeButtonsCount-4)+i].backgroundColor = #colorLiteral(red: 0.9450980392, green: 0.9803921569, blue: 0.9333333333, alpha: 1)
-            cardButtonsArray[(activeButtonsCount-4)+i].setAttributedTitle(getNSAtributedStringForCard(card: brain.cardsArray[randomNum]), for: UIControl.State.normal)
-            brain.cardsArray.remove(at: randomNum)
+        cardButtonsArray[(activeButtonsCount-4)+i].setAttributedTitle(getNSAtributedStringForCard(card:brain.cardsArray[(activeButtonsCount-4)+i]), for: UIControl.State.normal)
+
         }
         
     }
@@ -72,8 +68,7 @@ class ViewController: UIViewController {
     @IBAction func helpButtonPressed() {
     }
     
-    @IBAction func soundButtonPressed(_ sender: UIButton) {
-    }
+    @IBAction func soundButtonPressed(_ sender: UIButton) {}
     
     private func getNSAtributedStringForCard(card: Card) -> NSAttributedString { //logic error
         
@@ -150,5 +145,15 @@ class ViewController: UIViewController {
 extension Int {
     var arc4random: Int {
         return Int(arc4random_uniform(UInt32(self)))
+    }
+}
+
+extension UIButton {
+    override open var isSelected: Bool {
+        get {
+            return self.layer.borderWidth == 3.0
+        } set {
+            self.isSelected = newValue
+        }
     }
 }

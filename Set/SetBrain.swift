@@ -12,6 +12,7 @@ struct SetBrain {
     
     var cardsArray = [Card]()
     var points = 0
+    var cardsFacedUp = [Card]()
     
     mutating func generateCards() {
         
@@ -34,6 +35,39 @@ struct SetBrain {
             
         }
         
+        shuffleCards()
+        
     }
     
+    func chechForMatch() {
+        
+        //one of the 4 categories all the same
+        
+        //all have same color
+        //all have same shading
+        //all have same count
+        //all have same shape
+        
+        //all the 4 categories are different
+        
+        //all have different color
+        //all have different shading
+        //all have different count
+        //all have differeht shape
+        
+    }
+    
+    mutating private func shuffleCards() {
+        
+        for i in cardsArray.indices {
+            
+            let randomNum = cardsArray.count.arc4random
+            let temp = cardsArray[randomNum]
+            cardsArray[randomNum] = cardsArray[i]
+            cardsArray[i] = temp
+            
+        }
+        
+    }
 }
+
