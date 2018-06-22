@@ -14,6 +14,7 @@ struct Card: Equatable {
     let symbol: CardSymbol
     let shading: CardShading
     let color: CardColor
+    var isSelected = false
     
     enum CardNumber: Int {
         case one = 1

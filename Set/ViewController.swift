@@ -19,9 +19,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        //load 12 cards at random
+
         brain.generateCards()
         
         for i in 0...23 {
@@ -30,7 +28,7 @@ class ViewController: UIViewController {
         
         for i in 0...11 {
             
-           cardButtonsArray[i].setAttributedTitle(getNSAtributedStringForCard(card: brain.cardsArray[i]), for: UIControl.State.normal)
+            cardButtonsArray[i].setAttributedTitle(getNSAtributedStringForCard(card: brain.cardsArray[i]), for: UIControl.State.normal)
             
         }
         
@@ -41,23 +39,21 @@ class ViewController: UIViewController {
         if (sender.layer.borderWidth == 0.0) {
             sender.layer.borderWidth = 3.0
             sender.layer.borderColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1).cgColor
-            brain.cardsFacedUp.append(brain.cardsArray[cardButtonsArray.index(of: sender)!])
+            
+            brain.cardsArray[cardButtonsArray.index(of: sender)!].isSelected = true
             
         } else {
             sender.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0).cgColor
             sender.layer.borderWidth = 0.0
             
-            for i in brain.cardsFacedUp.indices {
-                if (brain.cardsArray[cardButtonsArray.index(of: sender)!] == brain.cardsFacedUp[i]) { //check for logic error
-                    brain.cardsFacedUp.remove(at: i)
-                }
-            }
+            brain.cardsArray[cardButtonsArray.index(of: sender)!].isSelected = false
+            
         }
         
-//        if (brain.cardsFacedUp.count == 3) {
-//            print(brain.chechForMatch())
-//
-//        }
+        if (brain.cardsFacedUp.count == 3) {
+            print(brain.chechForMatch())
+
+        }
         
     }
     

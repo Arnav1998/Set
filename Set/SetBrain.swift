@@ -12,7 +12,24 @@ struct SetBrain {
     
     var cardsArray = [Card]()
     var points = 0
-    var cardsFacedUp = [Card]()
+    var cardsFacedUp: [Card] {
+        
+        get {
+            
+            var cards = [Card]()
+            
+            for i in cardsArray.indices {
+                if (cardsArray[i].isSelected) {
+                    cards.append(cardsArray[i])
+                    print("Color: \(cardsArray[i].color), Number: \(cardsArray[i].number), Shading: \(cardsArray[i].shading), Symbol: \(cardsArray[i].symbol)") //debugging statement
+                }
+            }
+            
+            print("") //debugging statement
+            return cards
+        }
+        
+    }
     
     mutating func generateCards() {
         
@@ -24,7 +41,7 @@ struct SetBrain {
                     
                     for symbol in 1...3 {
                         
-                        let card = Card(number: Card.CardNumber(rawValue: number)!, symbol: Card.CardSymbol(rawValue: symbol)!, shading: Card.CardShading(rawValue: shading)!, color: Card.CardColor(rawValue: color)!)
+                        let card = Card(number: Card.CardNumber(rawValue: number)!, symbol: Card.CardSymbol(rawValue: symbol)!, shading: Card.CardShading(rawValue: shading)!, color: Card.CardColor(rawValue: color)!, isSelected: false)
                         
                         cardsArray.append(card)
                         
@@ -40,11 +57,6 @@ struct SetBrain {
     }
     
     func chechForMatch() -> Bool {
-        
-//        They all have the same number or have three different numbers.
-//        They all have the same symbol or have three different symbols.
-//        They all have the same shading or have three different shadings.
-//        They all have the same color or have three different colors.
         
         if ((cardsFacedUp[0].number == cardsFacedUp[1].number && cardsFacedUp[1].number == cardsFacedUp[2].number)||(cardsFacedUp[0].number != cardsFacedUp[1].number && cardsFacedUp[1].number != cardsFacedUp[2].number)) && ((cardsFacedUp[0].symbol == cardsFacedUp[1].symbol && cardsFacedUp[1].symbol == cardsFacedUp[2].symbol)||(cardsFacedUp[0].symbol != cardsFacedUp[1].symbol && cardsFacedUp[1].symbol != cardsFacedUp[2].symbol)) && ((cardsFacedUp[0].shading == cardsFacedUp[1].shading && cardsFacedUp[1].shading == cardsFacedUp[2].shading)||(cardsFacedUp[0].shading != cardsFacedUp[1].shading && cardsFacedUp[1].shading != cardsFacedUp[2].shading)) && ((cardsFacedUp[0].color == cardsFacedUp[1].color && cardsFacedUp[1].color == cardsFacedUp[2].color)||(cardsFacedUp[0].color != cardsFacedUp[1].color && cardsFacedUp[1].color != cardsFacedUp[2].color)) {
             
