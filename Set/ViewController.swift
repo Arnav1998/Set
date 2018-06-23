@@ -7,12 +7,16 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController { 
     
     private var brain = SetBrain()
     private var indexTillCardsUsed = 11
     private var activeButtonCount = 12
+    private var audioPlayer: AVAudioPlayer!
+    private var audioPlayer2: AVAudioPlayer!
+    private var soundStatus = true
     
     @IBOutlet weak var pointsLabel: UILabel!
     
@@ -21,6 +25,18 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        let url = Bundle.main.url(forResource: "backgroundMusic", withExtension: "mp3")
+        let url2 = Bundle.main.url(forResource: "buttonClickSound", withExtension: "mp3")
+        do {
+            self.audioPlayer = try AVAudioPlayer(contentsOf: url!)
+            self.audioPlayer2 = try AVAudioPlayer(contentsOf: url2!)
+            self.audioPlayer.play()
+            self.audioPlayer.numberOfLoops = -1
+            self.audioPlayer2.prepareToPlay()
+        } catch let error as NSError {
+            print(error.debugDescription)
+        }
 
         brain.generateCards()
         
@@ -36,6 +52,10 @@ class ViewController: UIViewController {
     }
     
     @IBAction func cardButtonPressed(_ sender: UIButton) {
+        
+        if (self.soundStatus) {
+            self.audioPlayer2.play()
+        }
         
         if (sender.layer.borderWidth == 0.0) { //not selected
             sender.layer.borderWidth = 3.0
@@ -124,7 +144,19 @@ class ViewController: UIViewController {
     @IBAction func helpButtonPressed() {
     }
     
-    @IBAction func soundButtonPressed(_ sender: UIButton) {}
+    @IBAction func soundButtonPressed(_ sender: UIButton) {
+        
+        if (soundStatus) {
+            soundStatus = false
+            sender.setTitle("🔇", for: UIControl.State.normal)
+            audioPlayer.stop()
+        } else {
+            soundStatus = true
+            sender.setTitle("🔊", for: UIControl.State.normal)
+            audioPlayer.play()
+        }
+        
+    }
     
     private func getNSAtributedStringForCard(card: Card) -> NSAttributedString { //logic error
         
@@ -196,6 +228,7 @@ class ViewController: UIViewController {
         
     }
     
+
 }
 
 extension Int {
