@@ -56,6 +56,10 @@ struct SetBrain {
     
     func chechForMatch() -> Bool {
         
+//        for i in cardsFacedUp.indices {
+//            print("Number: \(cardsFacedUp[i].number), Symbol: \(cardsFacedUp[i].symbol), Shading: \(cardsFacedUp[i].shading), Color: \(cardsFacedUp[i].color)")
+//        } //debugging statement
+        
         if ((cardsFacedUp[0].number == cardsFacedUp[1].number && cardsFacedUp[1].number == cardsFacedUp[2].number)||(cardsFacedUp[0].number != cardsFacedUp[1].number && cardsFacedUp[1].number != cardsFacedUp[2].number)) && ((cardsFacedUp[0].symbol == cardsFacedUp[1].symbol && cardsFacedUp[1].symbol == cardsFacedUp[2].symbol)||(cardsFacedUp[0].symbol != cardsFacedUp[1].symbol && cardsFacedUp[1].symbol != cardsFacedUp[2].symbol)) && ((cardsFacedUp[0].shading == cardsFacedUp[1].shading && cardsFacedUp[1].shading == cardsFacedUp[2].shading)||(cardsFacedUp[0].shading != cardsFacedUp[1].shading && cardsFacedUp[1].shading != cardsFacedUp[2].shading)) && ((cardsFacedUp[0].color == cardsFacedUp[1].color && cardsFacedUp[1].color == cardsFacedUp[2].color)||(cardsFacedUp[0].color != cardsFacedUp[1].color && cardsFacedUp[1].color != cardsFacedUp[2].color)) {
             
             return true

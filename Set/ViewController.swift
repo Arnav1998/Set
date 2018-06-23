@@ -116,7 +116,7 @@ class ViewController: UIViewController {
         
     }
     
-    @IBAction func addCardsButtonPressed() {
+    @IBAction func addCardsButtonPressed(_ sender: UIButton) {
         
         if (activeButtonCount <= 21) {
             
@@ -126,7 +126,7 @@ class ViewController: UIViewController {
                 
                 cardButtonsArray[(activeButtonCount-4)+i].isEnabled = true
                 cardButtonsArray[(activeButtonCount-4)+i].backgroundColor = #colorLiteral(red: 0.9450980392, green: 0.9803921569, blue: 0.9333333333, alpha: 1)
-               
+                
                 indexTillCardsUsed += 1
                 cardButtonsArray[(activeButtonCount-4)+i].setAttributedTitle(getNSAtributedStringForCard(card:brain.cardsArray[indexTillCardsUsed]), for: UIControl.State.normal)
                 
@@ -136,12 +136,24 @@ class ViewController: UIViewController {
             
         }
         
+        if (activeButtonCount == 24) {
+            sender.isEnabled = false
+        }
+    
     }
-
+   
     @IBAction func newGameButtonPressed() {
     }
     
     @IBAction func helpButtonPressed() {
+        
+        let alert = UIAlertController(title: "What Is A Set?", message: "A set consists of three cards satisfying all of these conditions.\n 1) They all have the same number or have three different numbers. \n 2) They all have the same symbol or have three different symbols. \n 3) They all have the same shading or have three different shadings. \n 4) They all have the same color or have three different colors. ", preferredStyle: UIAlertController.Style.alert)
+        
+        // add an action (button)
+        alert.addAction(UIAlertAction(title: "Play", style: UIAlertAction.Style.default, handler: nil))
+        
+        // show the alert
+        self.present(alert, animated: true, completion: nil)
     }
     
     @IBAction func soundButtonPressed(_ sender: UIButton) {
@@ -158,7 +170,7 @@ class ViewController: UIViewController {
         
     }
     
-    private func getNSAtributedStringForCard(card: Card) -> NSAttributedString { //logic error
+    private func getNSAtributedStringForCard(card: Card) -> NSAttributedString {
         
         var attributes = [NSAttributedString.Key:Any]()
         attributes[NSAttributedString.Key.font] = UIFont.systemFont(ofSize: 20)
@@ -227,7 +239,6 @@ class ViewController: UIViewController {
         return attributedString
         
     }
-    
 
 }
 
