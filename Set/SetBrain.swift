@@ -21,11 +21,9 @@ struct SetBrain {
             for i in cardsArray.indices {
                 if (cardsArray[i].isSelected) {
                     cards.append(cardsArray[i])
-                    print("Color: \(cardsArray[i].color), Number: \(cardsArray[i].number), Shading: \(cardsArray[i].shading), Symbol: \(cardsArray[i].symbol)") //debugging statement
                 }
             }
-            
-            print("") //debugging statement
+
             return cards
         }
         

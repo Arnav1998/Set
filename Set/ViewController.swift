@@ -8,16 +8,18 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController { 
     
     private var brain = SetBrain()
-    private var activeButtonsCount = 12
+    private var indexTillCardsUsed = 11
+    private var activeButtonCount = 12
     
     @IBOutlet weak var pointsLabel: UILabel!
     
     @IBOutlet var cardButtonsArray: [UIButton]!
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
 
         brain.generateCards()
@@ -26,47 +28,92 @@ class ViewController: UIViewController {
             cardButtonsArray[i].layer.cornerRadius = 8.0
         }
         
-        for i in 0...11 {
-            
+        for i in 0...indexTillCardsUsed {
             cardButtonsArray[i].setAttributedTitle(getNSAtributedStringForCard(card: brain.cardsArray[i]), for: UIControl.State.normal)
-            
+            cardButtonsArray[i].accessibilityValue = String(i)
         }
         
     }
     
     @IBAction func cardButtonPressed(_ sender: UIButton) {
         
-        if (sender.layer.borderWidth == 0.0) {
+        if (sender.layer.borderWidth == 0.0) { //not selected
             sender.layer.borderWidth = 3.0
-            sender.layer.borderColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1).cgColor
+            sender.layer.borderColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
             
-            brain.cardsArray[cardButtonsArray.index(of: sender)!].isSelected = true
+            brain.cardsArray[Int(sender.accessibilityValue!)!].isSelected = true
             
-        } else {
-            sender.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0).cgColor
+        } else { //selected
             sender.layer.borderWidth = 0.0
+            sender.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
             
-            brain.cardsArray[cardButtonsArray.index(of: sender)!].isSelected = false
-            
+            brain.cardsArray[Int(sender.accessibilityValue!)!].isSelected = false
+    
         }
         
         if (brain.cardsFacedUp.count == 3) {
-            print(brain.chechForMatch())
-
+            
+            if (brain.chechForMatch()) {
+                
+                brain.points += 5
+                
+                for i in 0..<activeButtonCount {
+                    
+                    if (cardButtonsArray[i].layer.borderWidth == 3.0) {
+                        
+                        brain.cardsArray[Int(cardButtonsArray[i].accessibilityValue!)!].isSelected = false
+                        cardButtonsArray[i].layer.borderWidth = 0.0
+                        cardButtonsArray[i].layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
+                        indexTillCardsUsed += 1
+                        cardButtonsArray[i].setAttributedTitle(getNSAtributedStringForCard(card: brain.cardsArray[indexTillCardsUsed]), for: UIControl.State.normal)
+                        cardButtonsArray[i].accessibilityValue = String(indexTillCardsUsed)
+                        
+                    }
+                    
+                }
+                
+                
+            } else {
+                
+                brain.points = brain.points - 2
+                for i in 0..<activeButtonCount {
+                    
+                    if (cardButtonsArray[i].layer.borderWidth == 3.0) {
+                        
+                        brain.cardsArray[Int(cardButtonsArray[i].accessibilityValue!)!].isSelected = false
+                        cardButtonsArray[i].layer.borderWidth = 0.0
+                        cardButtonsArray[i].layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
+                        
+                    }
+                    
+                }
+                
+            }
+            
+            pointsLabel.text = "Points: \(brain.points)"
+            
         }
         
     }
     
     @IBAction func addCardsButtonPressed() {
         
-        activeButtonsCount += 3
-        
-        for i in 1...3 {
+        if (activeButtonCount <= 21) {
             
-            cardButtonsArray[(activeButtonsCount-4)+i].isEnabled = true
-            cardButtonsArray[(activeButtonsCount-4)+i].backgroundColor = #colorLiteral(red: 0.9450980392, green: 0.9803921569, blue: 0.9333333333, alpha: 1)
-        cardButtonsArray[(activeButtonsCount-4)+i].setAttributedTitle(getNSAtributedStringForCard(card:brain.cardsArray[(activeButtonsCount-4)+i]), for: UIControl.State.normal)
-
+            activeButtonCount += 3
+            
+            for i in 1...3 {
+                
+                cardButtonsArray[(activeButtonCount-4)+i].isEnabled = true
+                cardButtonsArray[(activeButtonCount-4)+i].backgroundColor = #colorLiteral(red: 0.9450980392, green: 0.9803921569, blue: 0.9333333333, alpha: 1)
+               
+                indexTillCardsUsed += 1
+                cardButtonsArray[(activeButtonCount-4)+i].setAttributedTitle(getNSAtributedStringForCard(card:brain.cardsArray[indexTillCardsUsed]), for: UIControl.State.normal)
+                
+                cardButtonsArray[(activeButtonCount-4)+i].accessibilityValue = String(indexTillCardsUsed)
+                
+            }
+            
         }
         
     }
@@ -157,14 +204,5 @@ extension Int {
     }
 }
 
-extension UIButton {
-    override open var isSelected: Bool {
-        get {
-            return self.layer.borderWidth == 3.0
-        } set {
-            self.isSelected = newValue
-        }
-    }
-}
 
 
