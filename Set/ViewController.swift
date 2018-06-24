@@ -28,16 +28,18 @@ class ViewController: UIViewController {
         
         let url = Bundle.main.url(forResource: "backgroundMusic", withExtension: "mp3")
         let url2 = Bundle.main.url(forResource: "buttonClickSound", withExtension: "mp3")
-        do {
-            self.audioPlayer = try AVAudioPlayer(contentsOf: url!)
-            self.audioPlayer2 = try AVAudioPlayer(contentsOf: url2!)
-            self.audioPlayer.play()
-            self.audioPlayer.numberOfLoops = -1
-            self.audioPlayer2.prepareToPlay()
-        } catch let error as NSError {
-            print(error.debugDescription)
+        
+        if (soundStatus) {
+            do {
+                self.audioPlayer = try AVAudioPlayer(contentsOf: url!)
+                self.audioPlayer2 = try AVAudioPlayer(contentsOf: url2!)
+                self.audioPlayer.play()
+                self.audioPlayer.numberOfLoops = -1
+                self.audioPlayer2.prepareToPlay()
+            } catch let error as NSError {
+                print(error.debugDescription)
+            }
         }
-
         brain.generateCards()
         
         for i in 0...23 {
@@ -143,6 +145,16 @@ class ViewController: UIViewController {
     }
    
     @IBAction func newGameButtonPressed() {
+        
+        brain.points = 0
+        
+        indexTillCardsUsed = 11
+        activeButtonCount = 12
+        
+        viewDidLoad()
+        
+        pointsLabel.text = "Points: \(brain.points)"
+    
     }
     
     @IBAction func helpButtonPressed() {
