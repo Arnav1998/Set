@@ -81,14 +81,33 @@ class ViewController: UIViewController {
                 
                 for i in 0..<activeButtonCount {
                     
-                    if (cardButtonsArray[i].layer.borderWidth == 3.0) {
+                    if (indexTillCardsUsed <= 77) {
+                    
+                        if (cardButtonsArray[i].layer.borderWidth == 3.0) {
+                            
+                            brain.cardsArray[Int(cardButtonsArray[i].accessibilityValue!)!].isSelected = false
+                            cardButtonsArray[i].layer.borderWidth = 0.0
+                            cardButtonsArray[i].layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
+                            indexTillCardsUsed += 1
+                            cardButtonsArray[i].setAttributedTitle(getNSAtributedStringForCard(card: brain.cardsArray[indexTillCardsUsed]), for: UIControl.State.normal)
+                            cardButtonsArray[i].accessibilityValue = String(indexTillCardsUsed)
+                            
+                        }
+                    
+                    } else {
                         
-                        brain.cardsArray[Int(cardButtonsArray[i].accessibilityValue!)!].isSelected = false
-                        cardButtonsArray[i].layer.borderWidth = 0.0
-                        cardButtonsArray[i].layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
-                        indexTillCardsUsed += 1
-                        cardButtonsArray[i].setAttributedTitle(getNSAtributedStringForCard(card: brain.cardsArray[indexTillCardsUsed]), for: UIControl.State.normal)
-                        cardButtonsArray[i].accessibilityValue = String(indexTillCardsUsed)
+                        if (cardButtonsArray[i].layer.borderWidth == 3.0) {
+                            
+                            brain.cardsArray[Int(cardButtonsArray[i].accessibilityValue!)!].isSelected = false
+                            cardButtonsArray[i].isEnabled = false
+                            cardButtonsArray[i].layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
+                            cardButtonsArray[i].layer.borderWidth = 0.0
+                            cardButtonsArray[i].backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
+                            cardButtonsArray[i].setAttributedTitle(NSAttributedString(string: ""), for: UIControl.State.normal)
+                            indexTillCardsUsed += 1
+                            
+                        }
+                        
                         
                     }
                     
