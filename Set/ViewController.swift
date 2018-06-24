@@ -154,8 +154,14 @@ class ViewController: UIViewController {
         viewDidLoad()
         
         pointsLabel.text = "Points: \(brain.points)"
-        
-        //disable last 12 buttons and change their background to transparent
+
+        for i in 12...cardButtonsArray.count-1 {
+            
+            cardButtonsArray[i].isEnabled = false
+            cardButtonsArray[i].backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
+            cardButtonsArray[i].setAttributedTitle(NSAttributedString(string: ""), for: UIControl.State.normal)
+            
+        }
     
     }
     
