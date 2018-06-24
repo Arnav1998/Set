@@ -154,6 +154,8 @@ class ViewController: UIViewController {
         viewDidLoad()
         
         pointsLabel.text = "Points: \(brain.points)"
+        
+        //disable last 12 buttons and change their background to transparent
     
     }
     
